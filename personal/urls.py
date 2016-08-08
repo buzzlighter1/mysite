@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 from . import views
+from .forms import LoginForm
 
 #patterns to link to poll/views.py
 
@@ -11,6 +12,8 @@ urlpatterns = [
 	url(r'^contact/$', views.contact, name='contact'),
 
 	url(r'^register/$', views.UserFormView.as_view(), name='register'),
+
+ 
 
    # url(r'^$', views.IndexView.as_view(), name = 'index'),
     #regex 

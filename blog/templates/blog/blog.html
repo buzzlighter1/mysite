@@ -9,40 +9,49 @@
 <div class="row" id="blog-container">
 	<div class="col-md-3" id="blog-left=span"></div>
 	<div class="col-md-6" id="blog-main-container">
-		<div class="panel panel-success">
-			<div class="panel-heading"><div class="col-md-8" id="blog-main-container"><a href="/blog/{{post.id}}"><h4>{{post.title}}</h4></div> <h6 style="color:black; text-align:right;"> {{post.date}}</a></h6></div>
+		<a href="/blog/{{post.id}}"><div class="panel panel-success">
+			<div class="panel-heading"><div class="col-md-8" id="blog-main-container"><h4>{{post.title}}</h4></div> <h6 style="color:black; text-align:right;"> {{post.date}}</a></h6>
+			</div>
 
-			<div class="panel-body"><p>{{post.body| safe|slice:":150"}}...</p>
-				<br><br>
+			<div class="panel-body">
 
-				<div style="float: right" id="close-but">
-					{% if user.is_authenticated %}
-					<form action="{% url 'blog:delete-blog' post.id %}" method ="POST">
-						{% csrf_token %}
-						<input type="hidden" name="blog_id" value="{{post.id}}"/>
-						<button tpye="submit" class="btn btn-default btn-sm">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
-					</form>
-
-					<form action="{% url 'blog:update-blog' post.id %}" method ="get">
-						{% csrf_token %}
-						<input type="hidden" name="blog_id" value="{{post.id}}"/>
-						<button tpye="submit" class="btn btn-default btn-sm">
-							<span class="fa fa-pencil-square-o"></span>
-						</button>
-					</form>
-
-					<a href="{% url 'blog:update-blog' post.id %}" method ="post"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-
-					{% else %}
-					<p>please login to edit</p> 
-					{% endif %}
+				<div class="row" id="body_container" style="margin-bottom:10px;">
+					<div class="col-sm-3"><img src="{{post.cover_img}}" style="height:150px; width:150px;"></img></div>
+					<div class="col-md-6">
+						<p>{{post.body| safe|slice:":150"}}...</p>
+						<br><br>
+					</div>
 				</div>
-
+				<div class="row" id="tools"">
+				<div style="float:left" class="col-sm-6" id="last-edit">{% if post.last_modified != null %}<p>last edit: {{post.last_modified}}<p>{%endif%}</div>
+					<div style="float: right;" id="close-but">
+					<div class="col-md-6" style="float:right;">
+							{% if user.is_authenticated %}
+							<form action="{% url 'blog:delete-blog' post.id %}" method ="POST">
+								{% csrf_token %}
+								<input type="hidden" name="blog_id" value="{{post.id}}"/>
+								<button tpye="submit" class="btn btn-default btn-sm">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button>
+							</form>
+						</div>
+						<div class="col-md-1" style="float:right">
+							<form action="{% url 'blog:update-blog' post.id %}" method ="get">
+								{% csrf_token %}
+								<input type="hidden" name="blog_id" value="{{post.id}}"/>
+								<button tpye="submit" class="btn btn-default btn-sm">
+									<span class="fa fa-pencil-square-o"></span>
+								</button>
+							</form>
+							
+							{% endif %}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	{% endfor %}
-	{% endblock %}
+{% endfor %}
+{% endblock %}

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 
-from .forms import UserForm
+from .forms import UserForm, LoginForm
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.urlresolvers import reverse
@@ -38,6 +38,7 @@ class UserFormView(View):
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password']
 			user.set_password(password)
+			user.is_active = False
 			user.save()
 
 			#return user object if credentials are correct

@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<script src="https://use.fontawesome.com/fc41b66700.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Bangers|Fira+Mono|Pacifico" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	{% load staticfiles %}
 	<link rel='stylesheet' href="{% static 'css/main.css' %}" type='text/css'/>
 
@@ -20,71 +22,95 @@
 
 </head>
 
-<body class="body">
-	<div class ="head-container" style="background-color:black; min-height:4%;">
+<body class="body" style="background-color:#16C45F">
 
-		<div class="row;" id="navbar" style="background-color:black; color:black;">
-			<form class = "form-inline"  >
-				<div class="col-md-12" >
-					<ul class="nav nav-pills">
-						<li role="presentation"><a href="/" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a></li>
-						<li role="presentation"><a href="{% static 'resume/resume.pdf'  %}" target="blank"">CV</a></li>
-						<li role="presentation"><a href="/blog/">Blog</a></li>
-						<li role="presentation"><a href="/photography/">Photography</a></li>
-						<li role="presentation"><a href="/programming/">Programming</a></li>
-						<li role="presentation"><a href="/about/">About</a></li>
-						<div style="float: right" id="username">
-						{% if user.is_authenticated %}
-							<p style="color:white">Welcome, {{user.username}}</p>
-						{% else %}
-							<p style="color:white">please login</p>
-						{%endif %}
-						</div>
-					</div>
 
-				</form>
+
+	<nav class="navbar navbar-default" style="background-color: black; border-color:black; border-radius:0px; text-shadow:0px 0px black;">
+		<div class="container-fluid" style="background-color: black; border-color:black;">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a>
 			</div>
 
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/blog/">Blog</a></li>
+					<li><a href="{% static 'resume/resume.pdf' %}" target="blank">CV</a></li>
+					<li><a href="/about/">About</a></li>
+				</ul>
+
+
+				<ul class="nav navbar-nav navbar-right">
+
+					{% if user.is_authenticated %}
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="/blog/add">new post</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="/logout/">Logout</a></li>
+						</ul>
+					</li>
+					{% else %}
+					<li><a href="/login/">Login</a></li>
+					{%endif%}
+				</ul>
+
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+
+
+	<!--  style="background-color:#3AC950; -->
+	<div class ="main-body-container" style="background-color:#16C45F; min-height:80%;">
+		<div class ="container-fluid"  id="page-container">
+
+
+
+
+			<div class="jumbotron" style="background-color:#16C45F; color:white;">
+				<h2 style="font-family: 'Bangers', cursive;"><margin-left>A blog about Java, Django,<br> and Junk</h2></margin-left>
+				<p class="margin-left" style="color:black; font-family: 'Fira Mono', monospace;">/* programming, photography and musings from Asia of a <br>software developer abroad */</p>
+
+
+			</div>
 		</div>
-<!--  style="background-color:#3AC950; -->
-		<div class ="main-body-container" style="background-color:#16C45F; min-height:86%;">
-			<div class ="container-fluid"  id="page-container">
+		<div class="container-fluid">
+			{%block content%}
 
-
-
-
-				<div class="jumbotron" style="background-color:#16C45F; color:white;">
-					<h2 style="font-family: 'Bangers', cursive;"><margin-left>A blog about Java, Django,<br> and Junk</h2></margin-left>
-					<p class="margin-left" style="color:black; font-family: 'Fira Mono', monospace;">/* programming, photography and musings from Asia of a <br>software developer abroad */</p>
-
-
-				</div>
-			</div>
-			<div class="container-fluid">
-				{%block content%}
-
-				{% endblock %}
-			</div>
-
+			{% endblock %}
 		</div>
+
 	</div>
-	<!---background-color: #F2F20F -->
-	<div class="footer-container" style="background-color: black; min-height:10%">
-		<footer>
-			<div class="container-fluid" style='margin-left:15px'>
-				<p class="text-center">
-					<a href='/contact/'>Contact</a> |
-					<a href="https://sg.linkedin.com/in/wilkinsonalexander" target="blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>LinkedIn</a> |
-					<a href="https://twitter.com/alexwilkinson" target="blank"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></i>Twitter</a> |
-					<a href="https://plus.google.com/100305299900075738988" target="blank"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>Google+</a> |
-					<a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i>Github</a> |
-					<a href='/about/'>About</a>
-					<br><br>
-					All rights reserved Alex Wilkinson 2016 &#169
-				</p>
-			</div>
-		</footer>
-	</div>
+</div>
+<!---background-color: #F2F20F -->
+<div class="footer-container" style="background-color: black; min-height:10%; position: fixed; bottom: 0; width: 100%;">
+	<footer>
+		<div class="container-fluid" style='margin-left:15px'>
+			<p class="text-center">
+				|
+				<a href="https://sg.linkedin.com/in/wilkinsonalexander" target="blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>LinkedIn</a> |
+				<a href="https://twitter.com/alexwilkinson" target="blank"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></i>Twitter</a> |
+				<a href="https://plus.google.com/100305299900075738988" target="blank"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>Google+</a> |
+				<a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i>Github</a> |
+
+				<br><br>
+				All rights reserved Alex Wilkinson 2016 &#169
+			</p>
+		</div>
+	</footer>
+</div>
 </body>
 
 </html>

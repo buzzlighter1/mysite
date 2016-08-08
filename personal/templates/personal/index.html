@@ -1,0 +1,103 @@
+{% extends "personal/header.html" %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+.row a {
+  background-color: transparent;
+  color: black;
+}
+.row a:hover{
+	color: white;
+}
+
+
+</style>
+
+<!--first row down------------------------------------------------------------------------------------------>
+<body>
+<div class="row" id="mainpage-container" style="margin-bottom:70px;">
+	<div class="col-md-3" id="blog-left-span"></div>
+
+	<div class="col-md-3" id="github">
+		
+		<center><a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-5x" aria-hidden="true"></i></a>
+
+			<p style="font-size: 15px">Github page which contains all the good programming stuff mostly in Java
+				but I am actively building it out</p>
+			
+		</center>
+
+
+	</div>
+
+	<div class="col-md-3" id="cv">
+	{% load static %}
+		<center><a href="{% static 'resume/resume.pdf'  %}" target="blank"><i class="fa fa-paper-plane fa-5x" aria-hidden="true"></i></a>
+			<p style="font-size: 15px">Grab a copy of my CV for some goodnight reading</p>
+			</i>
+		</center>
+	</div>
+	<div class="col-md-3" id="blog-right-span"></div>
+</div>
+
+
+<!--second row down------------------------------------------------------------------------------------------>
+
+<div class="row" id="mainpage-container" style="margin-bottom:70px;">
+	<div class="col-md-3" id="blog-left-span"></div>
+
+	<div class="col-md-3" id="blog">
+		
+		<center><a href="/blog/"><i class="fa fa-file-text fa-5x" aria-hidden="true"></i></a>
+
+			<p style="font-size: 15px">Although this is mostly a tech blog it will contain opinions on many
+			day to day events this is my space to share my general views</p>
+		</center>
+
+
+	</div>
+
+	<div class="col-md-3" id="coding">
+		<center><i class="fa fa-file-code-o fa-5x" aria-hidden="true"></i>
+			<p style="font-size: 15px">My portfolio displayed in a hand user friendly view which snippets 
+			and all that good stuff</p>
+			</i>
+		</center>
+	</div>
+	<div class="col-md-3" id="blog-right-span"></div>
+</div>
+
+<!--third row down ------------------------------------------------------------------------------------------------>
+
+<div class="row" id="mainpage-container">
+	<div class="col-md-3" id="blog-left-span"></div>
+
+	<div class="col-md-3" id="photography">
+		
+		<center><i class="fa fa-camera fa-5x" aria-hidden="true">
+
+			<p style="font-size: 15px">I enjoy taking photos of things join me here to see what I can do. I mostly
+			use my Canon DSLR although my mobile is a handy tool.</p>
+			</i>
+		</center>
+
+
+	</div>
+
+	<div class="col-md-3" id="about-me">
+		<center><i class="fa fa-info-circle fa-5x" aria-hidden="true"></i>
+			<p style="font-size: 15px">My story find out a little bit more about me as a person in general over here.</p>
+			</i>
+		</center>
+	</div>
+	<div class="col-md-3" id="blog-right-span"></div>
+</div>
+
+</body>
+
+{% endblock %}
+
+

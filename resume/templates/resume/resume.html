@@ -1,0 +1,31 @@
+{% extends "personal/header.html" %}
+{% block title %}Resume: {{resume.title}}{% endblock %}
+
+{% block content %}
+<div id ="top-contact" style="background-color: #410563; min-height: 30%; color: white; overflow: auto;">
+
+	<div class="col-mid-3" id="contact-content" style="float: left; position: relative;">
+		{% for c in resume.contact_list %}
+		{{c}}<br>
+		{%endfor%}
+	</div>
+	<div class="col-mid-3" id="website" style="float: right">
+		<p>www.alexwilkinson.co</p>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-8" id="profile-pic" style="background-color: yellow; overflow: auto; min-height: 40%; position: absolute;">asdas</div>
+
+</div>
+
+
+{% endblock %}
+<!--- vars from table:
+title
+name
+education
+contact
+statement
+author
+profile_pic
+portfolio
+--> 

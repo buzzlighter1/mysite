@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>{% block title %}Alex Wilkinson{% endblock %}</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<script src="https://use.fontawesome.com/fc41b66700.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Bangers|Fira+Mono|Pacifico" rel="stylesheet">
+	{% load staticfiles %}
+	<link rel='stylesheet' href="{% static 'css/main.css' %}" type='text/css'/>
+
+	<style type="text/css">
+		html,
+		body{ 
+			height:100%
+		}
+	</style>
+
+</head>
+
+<body class="body">
+	<div class ="head-container" style="background-color:black; min-height:4%;">
+
+		<div class="row;" id="navbar" style="background-color:black; color:black;">
+			<form class = "form-inline"  >
+				<div class="col-md-12" >
+					<ul class="nav nav-pills">
+						<li role="presentation"><a href="/" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a></li>
+						<li role="presentation"><a href="{% static 'resume/resume.pdf'  %}" target="blank"">CV</a></li>
+						<li role="presentation"><a href="/blog/">Blog</a></li>
+						<li role="presentation"><a href="/photography/">Photography</a></li>
+						<li role="presentation"><a href="/programming/">Programming</a></li>
+						<li role="presentation"><a href="/about/">About</a></li>
+						<div style="float: right" id="username">
+						{% if user.is_authenticated %}
+							<p style="color:white">Welcome, {{user.username}}</p>
+						{% else %}
+							<p style="color:white">please login</p>
+						{%endif %}
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+<!--  style="background-color:#3AC950; -->
+		<div class ="main-body-container" style="background-color:#16C45F; min-height:86%;">
+			<div class ="container-fluid"  id="page-container">
+
+
+
+
+				<div class="jumbotron" style="background-color:#16C45F; color:white;">
+					<h2 style="font-family: 'Bangers', cursive;"><margin-left>A blog about Java, Django,<br> and Junk</h2></margin-left>
+					<p class="margin-left" style="color:black; font-family: 'Fira Mono', monospace;">/* programming, photography and musings from Asia of a <br>software developer abroad */</p>
+
+
+				</div>
+			</div>
+			<div class="container-fluid">
+				{%block content%}
+
+				{% endblock %}
+			</div>
+
+		</div>
+	</div>
+	<!---background-color: #F2F20F -->
+	<div class="footer-container" style="background-color: black; min-height:10%">
+		<footer>
+			<div class="container-fluid" style='margin-left:15px'>
+				<p class="text-center">
+					<a href='/contact/'>Contact</a> |
+					<a href="https://sg.linkedin.com/in/wilkinsonalexander" target="blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>LinkedIn</a> |
+					<a href="https://twitter.com/alexwilkinson" target="blank"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></i>Twitter</a> |
+					<a href="https://plus.google.com/100305299900075738988" target="blank"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>Google+</a> |
+					<a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i>Github</a> |
+					<a href='/about/'>About</a>
+					<br><br>
+					All rights reserved Alex Wilkinson 2016 &#169
+				</p>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>
+
+

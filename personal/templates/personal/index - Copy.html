@@ -1,0 +1,20 @@
+{% extends "personal/header.html" %}
+{% block title %}home{% endblock %}
+
+	{% block content %}
+
+<div class="row" id="blog-container">
+	<div class="col-md-3" id="blog-left=span"></div>
+	<div class="col-md-6" id="blog-main-container">
+		<div class="panel panel-success">
+			<div class="panel-heading"><h4>Welcome to my site</h4></div>
+
+			<div class="panel-body"><p>{% include "personal/includes/mainpost.html" %}</p></div>
+		</div>
+	</div>
+	</div>
+
+
+	{% endblock %}
+
+

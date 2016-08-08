@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<html>
+<head>
+	<style type="text/css">
+
+		body{ 
+			height:100%
+		}
+
+a {
+  background-color: transparent;
+  color: #B3B3B3;
+}
+a:active,
+a:hover {
+  outline: 0;
+}		
+
+.nav-pills > li {
+  float: left;
+}
+.nav-pills > li > a {
+  border-radius: 1px;
+}
+.nav-pills > li + li {
+  margin-left: 1px;
+}
+.nav-pills > li.active > a{
+	color: black;
+	},
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: black;
+  background-color: black;
+}
+.panel {
+  margin-bottom: 10px;
+  background-color: #F0FAF2;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+}
+.panel-body {
+  padding: 15px;
+}
+.panel-heading {
+  padding: 8px 5px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel-heading > .dropdown .dropdown-toggle {
+  color: inherit;
+}
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+}
+.jumbotron {
+  padding-top: 5px;
+  padding-bottom: 1px;
+  margin-bottom: 10px;
+  color: inherit;
+  background-color: #eee;
+}
+
+
+</style>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "personal/header.html" %}
+{% block title %}Portfolio{% endblock %}
+
+<!DOCTYPE html>
+<html>
+<html>
+<head>
+
+<body>
+{% block content %}
+
+<div class="row" id="blog-container">
+	<div class="col-md-1" id="blog-left=span"></div>
+	<div class="col-md-10" id="blog-main-container">
+	<div class="panel panel-success">
+	<div class="panel-heading"><div class="col-md-8" id="blog-main-container"><h4>{{post.title}}</h4></div> <h6 style="color:black; text-align:right;">{{post.date}}</h6></div>
+		
+		<div class="panel-body">{{post.body| safe|linebreaks}}</div>
+		</div>
+	</div>
+{% endblock %}

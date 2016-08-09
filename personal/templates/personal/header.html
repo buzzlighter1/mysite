@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="body" style="background-color:#16C45F">
+
 
 
 
@@ -30,39 +30,37 @@
 		<div class="container-fluid" style="background-color: black; border-color:black;">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a>
+				<a class="navbar-brand" href="{% url 'personal:index' %}" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="main-nav">
 				<ul class="nav navbar-nav">
-					<li><a href="/blog/">Blog</a></li>
+					<li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
 					<li><a href="{% static 'resume/resume.pdf' %}" target="blank">CV</a></li>
-					<li><a href="/about/">About</a></li>
+					<li><a href="{% url 'personal:about' %}">About</a></li>
 				</ul>
 
 
 				<ul class="nav navbar-nav navbar-right">
 
+
 					{% if user.is_authenticated %}
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="/blog/add">new post</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="/logout/">Logout</a></li>
-						</ul>
-					</li>
+					<ul class="nav navbar-nav">
+						<li><a href="{% url 'personal:index' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;{{user.username}}</a></li>
+						<li><a href="{% url 'blog:add-blog' %}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp; new post</a></li>
+						<li><a href="/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; logout</a></li>
+					</ul>
 					{% else %}
-					<li><a href="/login/">Login</a></li>
+					<ul class="nav navbar-nav">
+					<li><a href="/login"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; login</a></li>
+					</ul>
 					{%endif%}
 				</ul>
 
@@ -70,7 +68,7 @@
 		</div><!-- /.container-fluid -->
 	</nav>
 
-
+<body class="body" style="background-color:#16C45F">
 
 	<!--  style="background-color:#3AC950; -->
 	<div class ="main-body-container" style="background-color:#16C45F; min-height:80%;">
@@ -95,7 +93,7 @@
 	</div>
 </div>
 <!---background-color: #F2F20F -->
-<div class="footer-container" style="background-color: black; min-height:10%; position: fixed; bottom: 0; width: 100%;">
+<div class="footer-container" style="background-color: black; min-height:10%;">
 	<footer>
 		<div class="container-fluid" style='margin-left:15px'>
 			<p class="text-center">

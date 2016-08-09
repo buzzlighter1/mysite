@@ -13,6 +13,8 @@ from django.core.urlresolvers import reverse
 def index(request):
 	return render(request, 'personal/index.html')
 
+def aboutView(request):
+	return render(request, 'personal/about.html')
 
 def contact(request):
 	return render(request, 'personal/basic.html', {'content':['You can contact me directly at: ','alexwilkinson@gmail.com']})

@@ -23,10 +23,8 @@ app_name='mysite'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^polls/', include ('polls.urls')),
-    url(r'^', include ('personal.urls'), name = 'splash'),
-    url(r'^blog/', include ('blog.urls')),
-    url(r'^resume/', include ('resume.urls')),
-    url(r'portfolio/', include('portfolio.urls')),
+    url(r'^', include ('personal.urls', namespace = 'splash')),
+    url(r'^blog/', include ('blog.urls', namespace = 'posts')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'), 
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'), 
 ]

@@ -1,32 +1,43 @@
 from django.views import generic
+from django.utils import timezone
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import View
 from .models import Post
+from .forms import PostForm
+
+from django.contrib.auth.models import User
+
+# def BlogCreate(request):
+# 	form = PostForm()
+# 	context = {
+# 		"form":form,
+# 	}
+# 	return render(request, "post_form.html", context)
+
+
 #create the view that will return the blog list
 class IndexView(generic.ListView):
 	template_name = 'blog/blog.html'
 	context_object_name ='blog_list' #the list name
 
-	def get_queryset(self):
-		return Post.objects.all().order_by("-date")[:25] #what the database returns
+	paginate_by = 10
 
-	# def listing(request):
-	# 	post_list = Post.objects.all()
-	# 	paginator = Paginator(post_list, 25) # Show 25 contacts per page
-	# 	page = request.GET.get('page')
-	# 	try:
-	# 		queryset = paginator.page(page)
-	# 	except PageNotAnInteger:
- #        # If page is not an integer, deliver first page.
-	# 		queryset = paginator.page(1)
-	# 	except EmptyPage:
- #        # If page is out of range (e.g. 9999), deliver last page of results.
- #        	queryset = paginator.page(paginator.num_pages)
- #        return render(request, 'blog/blog.html', {'blog': blog_list})
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		if query:
+			return Post.objects.active().filter(
+				Q(title__icontains = query) |
+				Q(body__icontains = query)
+				).distinct()
+
+		if self.request.user.is_active or self.request.user.is_superuser: #if the user is logged in an active can view
+			return Post.objects.all()
+		else:
+			return Post.objects.active() #what the database returns
 
 
 #the indavidual blog view
@@ -35,14 +46,26 @@ class DetailView(generic.DetailView):
 	template_name ='blog/post.html'
 
 #template defaults to <model name>-form.html in lowercase so here post_form.html
-class BlogCreate(CreateView):
-	model = Post
-	fields =['title', 'body', 'date']
+# class BlogCreate(CreateView):
+# 	model = Post
+# 	fields =['title', 'publish','body', 'draft', 'cover_img']
+
+class BlogCreate(View):
+	template_name = 'blog/post_form.html'
+
+	def post(self,request):
+		form = PostForm(request.POST or None)
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.save()
+			return redirect('blog:blog_list')
+
+		return render(request, 'blog/post_form.html',{'form':form})
 
 #template defaults to <model name>-form.html in lowercase so here post_form.html
 class BlogUpdate(UpdateView):
 	model = Post
-	fields =['title', 'body', 'date']
+	fields =['title', 'publish','body', 'draft', 'cover_img']
 
 #template defaults to <model name>-form.html in lowercase so here post_form.html
 class BlogDelete(DeleteView):

@@ -5,17 +5,19 @@
 {% block content %}
 
 <div class="row">
-  <div class="col-md-4" ><center>
+	<div class="col-md-4" ><center>
 
-  	<p>something</p>
+		{% load static %}<img src="{% static 'img/personal/profile.jpg' %}" style="border-color: #f0faf2; "></img>
 
-  </center></div>
-  
-  <div class="col-md-4" style="background-color:#f0faf2; overflow: True; border-radius:6px;">
-  <p> middle panel </p>
-  </div>
 
-  <div class="col-md-4"></div>
+	</center></div>
+
+	<div class="col-md-4" style="background-color:#f0faf2; overflow: True; border-radius:6px;">
+	<h2>About</h2><br>
+	<p> About me</p>
+	</div>
+
+	<div class="col-md-4"></div>
 </div>
 
 {%endblock%}

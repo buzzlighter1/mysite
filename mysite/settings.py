@@ -32,8 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'portfolio',
-    'resume',
+    'pagedown',
     'blog',
     'personal',
     'polls.apps.PollsConfig',

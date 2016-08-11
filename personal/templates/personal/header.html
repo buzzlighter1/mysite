@@ -4,11 +4,25 @@
 <head>
 	<title>{% block title %}Alex Wilkinson{% endblock %}</title>
 	<meta charset="utf-8" />
+	<script src="http://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<script src="https://use.fontawesome.com/fc41b66700.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Bangers|Fira+Mono|Pacifico" rel="stylesheet">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".content-markdown").each(function(){
+				var content = $(this).text()
+				var markedContent = marked(content)
+				$(this).html(markedContent)
+			})
+
+		})
+
+	</script>	
 
 	{% load staticfiles %}
 	<link rel='stylesheet' href="{% static 'css/main.css' %}" type='text/css'/>
@@ -19,59 +33,64 @@
 			height:100%
 		}
 	</style>
-
+{% block head_extra %}{% endblock %}
 </head>
 
 
+<nav class="navbar navbar-default" style=" border-color:black; border-radius:0px; text-shadow:0px 0px black;">
+	<div class="container-fluid" style="background-color: black;">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{% url 'personal:index' %}" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="main-nav">
+			<ul class="nav navbar-nav">
+				<li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+				<li><a href="{% static 'resume/resume.pdf' %}" target="blank">CV</a></li>
+				<li><a href="{% url 'personal:about' %}">About</a></li>
+			</ul>
 
 
+			<ul class="nav navbar-nav navbar-right">
 
-	<nav class="navbar navbar-default" style="background-color: black; border-color:black; border-radius:0px; text-shadow:0px 0px black;">
-		<div class="container-fluid" style="background-color: black; border-color:black;">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="{% url 'personal:index' %}" style="font-family: 'Pacifico', cursive; font-size: 18px;">Alex Wilkinson</a>
-			</div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="main-nav">
+				{% if user.is_authenticated %}
 				<ul class="nav navbar-nav">
-					<li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-					<li><a href="{% static 'resume/resume.pdf' %}" target="blank">CV</a></li>
-					<li><a href="{% url 'personal:about' %}">About</a></li>
+					<li><a href="{% url 'personal:index' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;{{user.username}}</a></li>
+					<li><a href="{% url 'blog:add-blog' %}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp; new post</a></li>
+					<li><a href="/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; logout</a></li>
 				</ul>
-
-
-				<ul class="nav navbar-nav navbar-right">
-
-
-					{% if user.is_authenticated %}
-					<ul class="nav navbar-nav">
-						<li><a href="{% url 'personal:index' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;{{user.username}}</a></li>
-						<li><a href="{% url 'blog:add-blog' %}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp; new post</a></li>
-						<li><a href="/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; logout</a></li>
-					</ul>
-					{% else %}
-					<ul class="nav navbar-nav">
+				{% else %}
+				<ul class="nav navbar-nav">
 					<li><a href="/login"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; login</a></li>
-					</ul>
-					{%endif%}
 				</ul>
+				{%endif%}
+			</ul>
 
-			</div><!-- /.navbar-collapse -->
-		</div><!-- /.container-fluid -->
-	</nav>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
 
 <body class="body" style="background-color:#16C45F">
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
 
 	<!--  style="background-color:#3AC950; -->
-	<div class ="main-body-container" style="background-color:#16C45F; min-height:80%;">
+	<div class ="main-body-container" style="background-color:#16C45F; min-height:81.5%;">
 		<div class ="container-fluid"  id="page-container">
 
 
@@ -89,11 +108,12 @@
 
 			{% endblock %}
 		</div>
-
 	</div>
-</div>
+
+</body>
+
 <!---background-color: #F2F20F -->
-<div class="footer-container" style="background-color: black; min-height:10%;">
+<div class="footer-container" style="background-color: black; min-height:11%;">
 	<footer>
 		<div class="container-fluid" style='margin-left:15px'>
 			<p class="text-center">
@@ -109,7 +129,6 @@
 		</div>
 	</footer>
 </div>
-</body>
 
 </html>
 

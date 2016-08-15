@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'pagedown',
+    'pagedown', #third party
     'blog',
     'personal',
     'polls.apps.PollsConfig',

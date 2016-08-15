@@ -15,7 +15,8 @@
 <div class="row" id="blog-container">
 	<div class="col-md-3" id="blog-left=span"></div>
 	<div class="col-md-6" id="blog-main-container">
-		<a href="/blog/{{post.slug}}"><div class="panel panel-success">
+
+		<a href="/blog/{{post.slug}}">	{% if post.draft %}<div class="panel panel-danger">{% else %}<div class= "panel panel-success" >{%endif%}
 			<div class="panel-heading"><div class="col-md-8" id="blog-main-container"><h4>{{post.title}}</h4>
 
 			</div> 
@@ -26,11 +27,12 @@
 
 			<div class="row" id="body_container" style="margin-bottom:10px;">
 				<div class="col-sm-3"><img src="{{post.cover_img.url}}" style="height:150px; width:150px;"></img></div>
-				<div class="col-md-6 content-markdown">
-					<p>{{post.body| safe|slice:":150"}}...</p>
-					{% if post.draft %}<h4 style="color: red">Draft</h4>{%endif%}
+<div class="col-md-6"><div class = "content-markdown">
+<p>{{post.body| safe|slice:":150"}}...</p>
+{% if post.draft %}<h4 style="color: red">Draft</h4>{%endif%}
 
 					<br><br>
+					</div>
 				</div>
 			</div>
 			<div class="row" id="tools"">

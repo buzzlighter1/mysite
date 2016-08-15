@@ -8,6 +8,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View
 from .models import Post
 from .forms import PostForm
+from pagedown.widgets import PagedownWidget
+from django import forms
 
 from django.contrib.auth.models import User
 
@@ -46,31 +48,45 @@ class DetailView(generic.DetailView):
 	template_name ='blog/post.html'
 
 #template defaults to <model name>-form.html in lowercase so here post_form.html
-# class BlogCreate(CreateView):
-# 	model = Post
-# 	fields =['title', 'publish','body', 'draft', 'cover_img']
+class BlogCreate(CreateView):
+	model = Post
+	fields =['title', 'publish','body', 'draft', 'cover_img']
 
-class BlogCreate(View):
-	template_name = 'blog/post_form.html'
+	def get_form(self, form_class):
+		form = super(BlogCreate, self).get_form(form_class)
+		form.fields['publish'] = forms.DateField(widget=forms.SelectDateWidget)
+		form.fields['body'] = forms.CharField(widget=PagedownWidget)
+		return form
 
-	def post(self,request):
-		form = PostForm(request.POST or None)
-		if form.is_valid():
-			instance = form.save(commit=False)
-			instance.save()
-			return redirect('blog:blog_list')
 
-		return render(request, 'blog/post_form.html',{'form':form})
+
+# class BlogCreate(View):
+# 	template_name = 'blog/post_form.html'
+
+# 	def post(self,request):
+# 		form = PostForm(request.POST or None)
+# 		if form.is_valid():
+# 			instance = form.save(commit=False)
+# 			instance.save()
+# 			return redirect('blog:blog_list')
+
+# 		return render(request, 'blog/post_form.html',{'form:form'})
 
 #template defaults to <model name>-form.html in lowercase so here post_form.html
 class BlogUpdate(UpdateView):
 	model = Post
 	fields =['title', 'publish','body', 'draft', 'cover_img']
 
+	def get_form(self, form_class):
+		form = super(BlogUpdate, self).get_form(form_class)
+		form.fields['publish'] = forms.DateField(widget=forms.SelectDateWidget)
+		form.fields['body'] = forms.CharField(widget=PagedownWidget)
+		return form
+
 #template defaults to <model name>-form.html in lowercase so here post_form.html
 class BlogDelete(DeleteView):
 	model = Post
-	success_url = reverse_lazy('blog:index')
+	success_url = reverse_lazy('blog:blog_list')
 
 
 

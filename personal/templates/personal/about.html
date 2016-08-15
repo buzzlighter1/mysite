@@ -4,20 +4,22 @@
 
 {% block content %}
 
-<div class="row">
-	<div class="col-md-4" ><center>
+<style>
+	.main-post em{
+		font-family:'Pacifico', cursive;
+		padding-left: 0em;
+		font-size: 20px;
+	}
 
-		{% load static %}<img src="{% static 'img/personal/profile.jpg' %}" style="border-color: #f0faf2; "></img>
+</style>
 
-
-	</center></div>
-
-	<div class="col-md-4" style="background-color:#f0faf2; overflow: True; border-radius:6px;">
-	<h2>About</h2><br>
-	<p> About me</p>
+<div class = "row">
+	<div class="col-md-2"></div>
+	<div class = "col-md-8" style="background-color:#f0faf2; overflow: True; border-radius:5px;">
+		<div class = "col-mid-8">{% include "personal/includes/mainabout.html" %}
+		</div>
 	</div>
-
-	<div class="col-md-4"></div>
 </div>
+
 
 {%endblock%}

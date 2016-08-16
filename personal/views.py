@@ -8,6 +8,7 @@ from .forms import UserForm, LoginForm
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.urlresolvers import reverse
+from django.contrib.auth import logout
 
 
 def index(request):
@@ -18,6 +19,8 @@ def aboutView(request):
 
 def contact(request):
 	return render(request, 'personal/basic.html', {'content':['You can contact me directly at: ','alexwilkinson@gmail.com']})
+
+
 
 #this is for new users to add their information to the database and authenticate and login
 class UserFormView(View):

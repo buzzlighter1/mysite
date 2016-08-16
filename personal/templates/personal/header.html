@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>{% block title %}Alex Wilkinson{% endblock %}</title>
+	<title>Alex Wilkinson | {% block title %}{% endblock %}</title>
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -18,6 +18,10 @@
 				var content = $(this).text()
 				var markedContent = marked(content)
 				$(this).html(markedContent)
+			})
+
+			$(".content-markdown img").each(function(){
+				$(this).addClass("img-responsive");
 			})
 
 		})
@@ -54,7 +58,7 @@
 		<div class="collapse navbar-collapse" id="main-nav">
 			<ul class="nav navbar-nav">
 				<li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-				<li><a href="{% static 'doc/resume.pdf' %}" target="blank">CV</a></li>
+				<li><a href="{% static 'doc/resume.pdf' %}" target="blank">Resume</a></li>
 				<li><a href="{% url 'personal:about' %}">About</a></li>
 			</ul>
 
@@ -118,10 +122,10 @@
 		<div class="container-fluid" style='margin-left:15px'>
 			<p class="text-center">
 				|
-				<a href="https://sg.linkedin.com/in/wilkinsonalexander" target="blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>LinkedIn</a> |
-				<a href="https://twitter.com/alexwilkinson" target="blank"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></i>Twitter</a> |
-				<a href="https://plus.google.com/100305299900075738988" target="blank"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>Google+</a> |
-				<a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i>Github</a> |
+				<a href="https://sg.linkedin.com/in/wilkinsonalexander" target="blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>&nbsp;LinkedIn</a> |
+				<a href="https://twitter.com/alexwilkinson" target="blank"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></i>&nbsp;Twitter</a> |
+				<a href="https://plus.google.com/100305299900075738988" target="blank"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>&nbsp;Google+</a> |
+				<a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i>&nbsp;Github</a> |
 
 				<br><br>
 				All rights reserved Alex Wilkinson 2016 &#169

@@ -10,15 +10,10 @@ from .models import Post
 from .forms import PostForm
 from pagedown.widgets import PagedownWidget
 from django import forms
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 
-# def BlogCreate(request):
-# 	form = PostForm()
-# 	context = {
-# 		"form":form,
-# 	}
-# 	return render(request, "post_form.html", context)
+
 
 
 #create the view that will return the blog list
@@ -47,41 +42,57 @@ class DetailView(generic.DetailView):
 	model = Post #what database table
 	template_name ='blog/post.html'
 
-#template defaults to <model name>-form.html in lowercase so here post_form.html
-class BlogCreate(CreateView):
-	model = Post
-	fields =['title', 'publish','body', 'draft', 'cover_img']
+class BlogCreate(LoginRequiredMixin, View):
+	login_url = 'personal:login'
+	form_class = PostForm
+	template_name = 'blog/post_form.html'
 
-	def get_form(self, form_class):
-		form = super(BlogCreate, self).get_form(form_class)
-		form.fields['publish'] = forms.DateField(widget=forms.SelectDateWidget)
-		form.fields['body'] = forms.CharField(widget=PagedownWidget)
-		return form
+	def get(self, request):
+		form = self.form_class(None)
+		return render(request, self.template_name,{'form':form})
 
+	def post(self, request):
+		args ={}
+		form = self.form_class(request.POST,request.FILES)
 
+		if form.is_valid():
+			newpost = form.save(commit=False)
+			newpost = Post(cover_img = request.FILES['cover_img'])
+			newpost.author = request.user
+			newpost = form.cleaned_data.get('publish')
+			newpost.save()
+			return redirect('blog:blog_list')
+		else:
+			form = self.form_class(None)
+		args['form'] = form
+		return render(request, 'blog/post_form.html', args)
 
-# class BlogCreate(View):
-# 	template_name = 'blog/post_form.html'
+class BlogUpdate(LoginRequiredMixin, View):
+	login_url = 'personal:login'
+	form_class = PostForm
+	template_name = 'blog/post_form.html'
 
-# 	def post(self,request):
-# 		form = PostForm(request.POST or None)
-# 		if form.is_valid():
-# 			instance = form.save(commit=False)
-# 			instance.save()
-# 			return redirect('blog:blog_list')
+	def get(self, request, slug):
+		postUpdated = get_object_or_404(Post, slug=slug)
+		form = self.form_class(request.POST or None, instance=postUpdated)
+		return render(request, self.template_name,{'form':form})
 
-# 		return render(request, 'blog/post_form.html',{'form:form'})
+	def post(self, request, slug):
+		postUpdated = get_object_or_404(Post, slug=slug)
+		args ={}
+		form = self.form_class(request.POST, request.FILES, instance=postUpdated)
 
-#template defaults to <model name>-form.html in lowercase so here post_form.html
-class BlogUpdate(UpdateView):
-	model = Post
-	fields =['title', 'publish','body', 'draft', 'cover_img']
-
-	def get_form(self, form_class):
-		form = super(BlogUpdate, self).get_form(form_class)
-		form.fields['publish'] = forms.DateField(widget=forms.SelectDateWidget)
-		form.fields['body'] = forms.CharField(widget=PagedownWidget)
-		return form
+		if form.is_valid():
+			postUpdated = form.save(commit = False)
+			postUpdated.author = request.user
+			Post.cover_img = Post(cover_img = request.FILES['cover_img'])
+			postUpdated.publish = form.cleaned_data.get('publish')
+			postUpdated.save()
+			return redirect('blog:blog_list')
+		else:
+			form = self.form_class(None)
+		args['form'] = form
+		return render(request, 'blog/post_form.html', args)
 
 #template defaults to <model name>-form.html in lowercase so here post_form.html
 class BlogDelete(DeleteView):
@@ -91,3 +102,35 @@ class BlogDelete(DeleteView):
 
 
 
+#Redundent code will be trashed-------------------------------------------------------------------------------
+
+#template defaults to <model name>-form.html in lowercase so here post_form.html
+# class BlogCreate(CreateView):
+# 	form_class = PostForm
+# 	model = Post
+# 	fields =['title', 'publish','body', 'draft', 'cover_img']
+
+# 	def get_form(self, form_class):
+# 		form = super(BlogCreate, self).get_form(form_class)
+# 		form.fields['publish'] = forms.DateField(widget=forms.SelectDateWidget)
+# 		form.fields['body'] = forms.CharField(widget=PagedownWidget)
+# 		return form
+
+
+#template defaults to <model name>-form.html in lowercase so here post_form.html
+# class BlogUpdate(UpdateView):
+# 	model = Post
+# 	fields =['title', 'publish','body', 'draft', 'cover_img']
+
+# 	def get_form(self, form_class):
+# 		form = super(BlogUpdate, self).get_form(form_class)
+# 		form.fields['publish'] = forms.DateField(widget=forms.SelectDateWidget)
+# 		form.fields['body'] = forms.CharField(widget=PagedownWidget)
+# 		return form
+
+# def BlogCreate(request):
+# 	form = PostForm()
+# 	context = {
+# 		"form":form,
+# 	}
+# 	return render(request, "post_form.html", context)

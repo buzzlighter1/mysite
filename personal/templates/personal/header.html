@@ -38,6 +38,7 @@
 		}
 	</style>
 {% block head_extra %} {% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 
@@ -83,7 +84,7 @@
 	</div><!-- /.container-fluid -->
 </nav>
 
-<body class="body" style="background-color:#16C45F">
+<body class="body" {% if debug %} style="background-color:red" {% else %} style="background-color:#16C45F"{% endif %}>
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -94,13 +95,13 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 	<!--  style="background-color:#3AC950; -->
-	<div class ="main-body-container" style="background-color:#16C45F; min-height:81.5%;">
+	<div class ="main-body-container" style=" {% if debug %} background-color:red; {% else %} background-color:#16C45F; {% endif %} min-height:81.5%;">
 		<div class ="container-fluid"  id="page-container">
 
 
 
 
-			<div class="jumbotron" style="background-color:#16C45F; color:white;">
+			<div class="jumbotron" style=" {% if debug %} background-color:red; {% else %} background-color:#16C45F; {% endif %} color:white;">
 				<h2 style="font-family: 'Bangers', cursive;"><margin-left>A blog about Java, Django,<br> and Junk</h2></margin-left>
 				<p class="margin-left" style="color:black; font-family: 'Fira Mono', monospace;">/* programming, photography and musings from Asia of a <br>software developer abroad */</p>
 
@@ -128,7 +129,8 @@
 				<a href="https://github.com/anontyro" target="blank"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i>&nbsp;Github</a> |
 
 				<br><br>
-				All rights reserved Alex Wilkinson 2016 &#169
+				All rights reserved Alex Wilkinson 2016 &#169 Site <br>
+				<a href="{% url 'personal:about' %}#update">Version 1.5a</a>
 			</p>
 		</div>
 	</footer>

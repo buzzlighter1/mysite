@@ -15,7 +15,9 @@ urlpatterns = [
 
 	url(r'^about/$', views.aboutView, name='about'),
 
+	url(r'^login/$', views.LoginFormView.as_view(), name='login'),
  
+ 	url(r'^logout/$', views.logoutView, name='logout'),
 
    # url(r'^$', views.IndexView.as_view(), name = 'index'),
     #regex 

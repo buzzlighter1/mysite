@@ -18,7 +18,7 @@ class Post(models.Model):
 	publish = models.DateField(auto_now=False, auto_now_add=False)
 	last_modified = models.DateTimeField(blank=True, auto_now = True, null=True)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
-	cover_img = models.FileField(default='settings.MEDIA_ROOT/media/default.png')
+	cover_img = models.FileField(default='/media/default.png')
 
 	objects = PostManager()
 

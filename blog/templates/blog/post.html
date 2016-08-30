@@ -15,26 +15,27 @@
 				<div class="panel-heading" style="position: relative; background: url('{{post.cover_img.url}}'); width:100%; height:300px; display:block;">
 
 					<!-- <span><center><img src=" {{post.cover_img.url}}" style="width:100%; max-height: 300px;"></img></center></span> -->
-					<div id="post-title" style="position: absolute; float: left; z-index: 3; left: 20px; bottom: 5px;">
-						<h1 style="font-family: 'Bangers'; font-size: 50px; color:white; text-shadow: 2px 2px black;">{{post.title}}</h1>{% if post.draft %}<h4 style="color: red">Draft</h4>{%endif%}
+					<div id="post-title" style="position: absolute; float: left; z-index: 3; left: 10px; bottom: -10px;">
+						<h1 style="font-family: 'Bangers'; font-size: 60px; color:white; text-shadow: 2px 2px black;">{{post.title}}</h1>{% if post.draft %}<h4 style="color: red">Draft</h4>{%endif%}
 					</div>
-					<div id="post-date" style="position:absolute; display: block; z-index: 3; right:5px; top: 5px;">
-						<h2 style="color:white; text-align:right; text-shadow: 2px 2px black;">Posted: {{post.publish}}</h2>
+					<div id="post-date" style="position:absolute; display: block; z-index: 3; right:8px; top: -15px;">
+						<h3 style="color:white; text-align:right; text-shadow: 2px 2px black;">Published: {{post.publish}}<br> By {{user.first_name}} {{user.last_name}}</h3>
 					</div>
 					
 				</div>
 				<div id="body_container" style="margin-bottom:10px; padding: 10px 10px 10px 10px;">
-				<div class="fb-like" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-				<hr>
-<div class="content-markdown">
-{{post.body}}
-</div>
-				<hr>
+				<div class="row" id="byline">
+					<div class="fb-like" style="float:left; left:20px;" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+					</div>
+					<hr>
+					<div class="content-markdown">{{post.body}}</div>
+
+					<hr>
+					<div style="float:right;" id="last-edit">{% if post.last_modified != null %}<p style="font-size:12px; color:green;">Last edited: {{post.last_modified}}</p>{%endif%}</div>
 
 
-
-				<div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
-			</div>
+					<div class="fb-comments" style="left:20px;" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -23,15 +23,6 @@ class Post(models.Model):
 
 	objects = PostManager()
 
-	# def save(self, *args, **kwargs):
-	# 	try:
-	# 		this = Post.objects.get(id=self.id)
-	# 		if this.cover_img != self.cover_img:
-	# 			this.cover_img.delete()
-	# 	except: pass
-	# 	super(Post, self).save(*args, **kwargs)
-
-
 	def get_absolute_url(self):
 		return reverse('posts:posts',kwargs={'slug':self.slug}) #must give the views a name to correctly import as from urls(blog) the detailed url link
 

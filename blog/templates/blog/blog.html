@@ -2,8 +2,19 @@
 {% block title %}Blog{% endblock %}
 
 
-
 {% block content %}
+
+<style type="text/css">
+
+	.row a{
+		color:inherit;
+		background-color: inherit;
+		text-decoration: none;
+
+	}
+	
+</style>
+
 <div class="row">
 	<div class='col-md-offset-3'>
 		<form method='GET' actions=''>
@@ -19,62 +30,73 @@
 	</div>
 </div>
 
-
 {% for post in blog_list %}
 
 
-<div class="row" id="blog-container" style="margin-top: 10px;">
-	<div class="col-md-6 col-md-offset-3" id="blog-main-container">
+<div class="row" id="blog-container" style="margin-top: 10px;"><a href="/blog/{{post.slug}}" id="contain-link">
+	<div class="col-md-6 col-md-offset-3 hvr-float" id="blog-main-container">
 
-		<a href="/blog/{{post.slug}}">	{% if post.draft %}<div class="panel panel-danger">{% else %}<div class= "panel panel-success" >{%endif%}
-			<div class="panel-heading"><div class="col-md-8" id="blog-main-container"><h4>{{post.title}}</h4>
+		{% if post.draft %}<div class="panel panel-danger">
+		{% else %}<div class= "panel panel-success" style="hover{outline:1px solid black;}">
+		{%endif%}
+		<div class="panel-heading">
+			<div class="col-md-8" id="blog-main-container"><h4>{{post.title}}</h4></div> 
+			<h6 style="color:black; text-align:right;">Published: {{post.publish}}<br>  by {{user.first_name}} {{user.last_name}} </h6>
+		</a>
 
-			</div> 
-			<h6 style="color:black; text-align:right;"> {{post.publish}}</a></h6>
-		</div>
+	</div><!-- blog-container -->
 
-		<div class="panel-body">
+	<div class="panel-body"><a href="/blog/{{post.slug}}" id="body-link">
 
-			<div class="row" id="body_container" style="margin-bottom:10px;">
-				<div class="col-sm-3"><img src="{{post.cover_img.url}}" style="height:150px; width:150px;"></img></div>
-				<div class="col-md-6"><div class = "content-markdown"><p>{{post.body| safe|slice:":150"}}...</p>
-					{% if post.draft %}<h4 style="color: red">Draft</h4>{%endif%}
+		<div class="row" id="body_container" style="margin-bottom:10px;">
+			<div class="col-sm-3"><img src="{{post.cover_img.url}}" style="height:150px; width:300px;"></img></div>
+			<div class="col-md-8" style="float:right;"><div class = "content-markdown"><p>{{post.body| safe|slice:":500"}}...</p>
+				{% if post.draft %}<em><h4>Draft</h4></em>{%endif%}
 
-					<br><br>
-				</div>
+				<br><br>
 			</div>
-		</div>
-		<div class="row" id="tools"">
-			<div style="float:left" class="col-sm-6" id="last-edit">{% if post.last_modified != null %}<p>Edited: {{post.last_modified}}</p>{%endif%}</div>
-			<div style="float: right;" id="close-but">
 
-				<div class="col-md-6" style="float:right;">
-					{% if user.is_authenticated %}
-					<form action="{% url 'blog:delete-blog' post.id %}" method ="POST">
-						{% csrf_token %}
-						<input type="hidden" name="blog_id" value="{{post.id}}"/>
-						<button tpye="submit" class="btn btn-default btn-sm">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
-					</form>
-				</div>
-				<div class="col-md-1" style="float:right">
-					<form action="{% url 'blog:update-blog' post.slug %}" method ="get">
-						{% csrf_token %}
-						<input type="hidden" name="blog_id" value="{{post.slug}}"/>
-						<button tpye="submit" class="btn btn-default btn-sm">
-							<span class="fa fa-pencil-square-o"></span>
-						</button>
-					</form>
-
-					{% endif %}
-				</div>
-			</div>
 		</div>
+
 	</div>
+
+	<div class="row" id="tools"">
+		<div style="float:left" class="col-sm-6" id="last-edit">{% if post.last_modified != null %}<p style="font-size:12px;">Last edited: {{post.last_modified}}</p>{%endif%}</div>
+		<div style="float: right;" id="close-but"></a>
+
+			<div class="col-md-6" style="float:right;">
+				{% if user.is_authenticated %}
+				<form action="{% url 'blog:delete-blog' post.id %}" method ="POST">
+					{% csrf_token %}
+					<input type="hidden" name="blog_id" value="{{post.id}}"/>
+					<button tpye="submit" class="btn btn-default btn-sm">
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+				</form>
+			</div>
+
+			<div class="col-md-1" style="float:right">
+				<form action="{% url 'blog:update-blog' post.slug %}" method ="get">
+					{% csrf_token %}
+					<input type="hidden" name="blog_id" value="{{post.slug}}"/>
+					<button tpye="submit" class="btn btn-default btn-sm">
+						<span class="fa fa-pencil-square-o"></span>
+					</button>
+				</form>
+
+				{% endif %}
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
 </div>
 </div>
 </div>
+
 
 
 {% endfor %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -23,7 +23,7 @@ def logoutView(request):
 	logout(request)
 	return redirect('personal:index')
 
-
+#
 class LoginFormView(View):
 	form_class = LoginForm
 	templete_name = 'registration/login.html'

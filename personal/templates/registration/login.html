@@ -18,6 +18,7 @@
             <div class="panel-body">
                 <form method="post" action="">
                     {% csrf_token %}
+
                     <p class="bs-component">
                         <table>
                             <tr>
@@ -31,13 +32,14 @@
                         </table>
                     </p>
                     <p class="bs-component">
+                        <input type="hidden" name="next" value="{{ next }}" />
                         <center><input class="btn btn-success btn-sm" type="submit" value="login" />
                         <br>
                         <br>
                         <a href="{% url 'personal:register' %}">register</a>
                         </center>
                     </p>
-                    <input type="hidden" name="next" value="{{ next }}" />
+                    
                 </form>
             </div>
         </div>

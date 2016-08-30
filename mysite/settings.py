@@ -129,10 +129,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'personal.context_processors.debug',
-)
-
 INTERNAL_IPS = (
     '127.0.0.1',
 )

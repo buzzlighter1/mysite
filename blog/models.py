@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.db.models.signals import pre_save #allows models to be altered before being saved
 from django.utils.text import slugify
+from blog.storage import OverwriteStorage
 
 class PostManager(models.Manager):
 	def active(self, *args, **kwargs):
@@ -18,9 +19,18 @@ class Post(models.Model):
 	publish = models.DateField(auto_now=False, auto_now_add=False)
 	last_modified = models.DateTimeField(blank=True, auto_now = True, null=True)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
-	cover_img = models.FileField(default='/media/default.png')
+	cover_img = models.FileField(default='/media/default.png', storage=OverwriteStorage())
 
 	objects = PostManager()
+
+	# def save(self, *args, **kwargs):
+	# 	try:
+	# 		this = Post.objects.get(id=self.id)
+	# 		if this.cover_img != self.cover_img:
+	# 			this.cover_img.delete()
+	# 	except: pass
+	# 	super(Post, self).save(*args, **kwargs)
+
 
 	def get_absolute_url(self):
 		return reverse('posts:posts',kwargs={'slug':self.slug}) #must give the views a name to correctly import as from urls(blog) the detailed url link
@@ -41,3 +51,5 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_receiver, sender=Post)
+
+#, storage=OverwriteStorage()

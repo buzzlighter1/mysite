@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'pagedown', #third party
+    #'pagedown', #third party
     'blog',
     'personal',
     'polls.apps.PollsConfig',
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC+8'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
